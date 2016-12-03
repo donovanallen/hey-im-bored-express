@@ -2,14 +2,11 @@ var mongoose = require('mongoose')
 
 var UserEventSchema = new mongoose.Schema(
   {
-    zipcode: String,
-    category: String,
-    eventName: String,
-    eventLocation: String,
-    eventTime: String,
-    eventDate: String,
-    eventDescription: String,
-    eventUrl: String
+    postal_code: String,
+    title: String,
+    venue_address: String,
+    description: String,
+    url: String
   }
 )
 
