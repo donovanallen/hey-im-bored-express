@@ -24,6 +24,7 @@ app.use(parser.json({extended: true}));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, DELETE");
   next();
 });
 
@@ -68,9 +69,6 @@ app.get("/", function(req, res) {
 
 app.get("/api/events", function(req, res) {
 
-  // UserEvent.find({}).then(function(events){
-  //   res.json(events)
-  // })
 
   UserEvent.count().exec(function(err, count){
       var random = Math.floor(Math.random() * count);
@@ -82,6 +80,11 @@ app.get("/api/events", function(req, res) {
     });
 });
 
+app.delete("/api/events", function(req, res){
+  UserEvent.findOneAndRemove(req.event).then(function(){
+    res.json({success: true});
+  });
+});
 
 
 app.listen(app.get("port"), function () {
