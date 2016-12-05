@@ -21,7 +21,6 @@ app.engine(".hbs", hbs({
 app.use("/assets", express.static("public"));
 app.use(parser.json({extended: true}));
 
-<<<<<<< HEAD
 app.get("/", function(req, res) {
   var options = {
       host : 'api.eventful.com',
@@ -62,9 +61,6 @@ app.get("/", function(req, res) {
     // console.log("dfhi")
 
 });
-=======
->>>>>>> 7e5648fbf136443ef5f30e7a9ba09fe11bf00480
-
 
 app.get("/", function(req, res) {
   console.log("hello")

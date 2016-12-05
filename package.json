@@ -21,11 +21,7 @@
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
     "http": "0.0.0",
-<<<<<<< HEAD
     "mongoose": "^4.7.1",
     "request": "^2.79.0"
-=======
-    "mongoose": "^4.7.1"
->>>>>>> 7e5648fbf136443ef5f30e7a9ba09fe11bf00480
   }
 }
