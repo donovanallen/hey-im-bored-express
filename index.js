@@ -24,6 +24,7 @@ app.use(parser.json({extended: true}));
 
 
 app.get("/", function(req, res) {
+  console.log("hello")
   restfulAPI.options;
   restfulAPI.request;
   UserEvent.count().exec(function(err, count){
