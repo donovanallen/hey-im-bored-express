@@ -4,34 +4,25 @@ var UserEvent = mongoose.model("UserEvent")
 
 var seedData = [
   {
-    "zipcode": "20052",
-    "category": "music",
-    "eventName": "Bono Goes Solo: Live",
-    "eventLocation": "1234 Cool St",
-    "eventTime": "21:00",
-    "eventDate": "01-01-2017",
-    "eventDescription": "U2 is Sad. Bono's gettin' rich. Come check it out.",
-    "eventUrl": "http://www.google.com"
+    "postal_code": "20052",
+    "title": "Bono Goes Solo: Live",
+    "venue_address": "1234 Cool St",
+    "description": "U2 is Sad. Bono's gettin' rich. Come check it out.",
+    "url": "http://www.google.com"
   },
   {
-    "zipcode": "20002",
-    "category": "family",
-    "eventName": "Barney and Friends learn to Clean",
-    "eventLocation": "8476 Purple Ave",
-    "eventTime": "22:00",
-    "eventDate": "02-06-2017",
-    "eventDescription": "Your fave purple dinosaur teaches your kids how to clean the house",
-    "eventUrl": "http://www.barney.com"
+    "postal_code": "20002",
+    "title": "Barney and Friends learn to Clean",
+    "venue_address": "8476 Purple Ave",
+    "description": "Your fave purple dinosaur teaches your kids how to clean the house",
+    "url": "http://www.barney.com"
   },
   {
-    "zipcode": "20004",
-    "category": "sports",
-    "eventName": "Washington Mystics v. Phoenix Stars",
-    "eventLocation": "12 Blue St",
-    "eventTime": "19:00",
-    "eventDate": "03-05-2017",
-    "eventDescription": "WNBA Action",
-    "eventUrl": "http://www.wnba.com"
+    "postal_code": "20004",
+    "title": "Washington Mystics v. Phoenix Stars",
+    "venue_address": "12 Blue St",
+    "description": "WNBA Action",
+    "url": "http://www.wnba.com"
   }
 ]
 
