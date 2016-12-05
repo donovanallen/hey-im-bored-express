@@ -6,6 +6,7 @@ var http = require('http')
 var app = express();
 var restfulAPI = require("./eventful.js");
 var UserEvent = mongoose.model("UserEvent");
+var cors = require('cors');
 
 app.set("port", process.env.PORT || 4001);
 app.set("view engine", "hbs")
@@ -20,11 +21,16 @@ app.engine(".hbs", hbs({
 
 app.use("/assets", express.static("public"));
 app.use(parser.json({extended: true}));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get("/", function(req, res) {
   var options = {
       host : 'api.eventful.com',
-      path : '/json/events/search?q=family&l=San+Francisco&app_key=' + restfulAPI.eventful_key
+      path : '/json/events/search?q=food&l=20002&app_key=' + restfulAPI.eventful_key
     }
 
   var request = http.get(options, function(response){
@@ -58,28 +64,25 @@ app.get("/", function(req, res) {
       });
 
     });
-    // console.log("dfhi")
-
 });
 
-app.get("/", function(req, res) {
-  console.log("hello")
-  restfulAPI.options;
-  restfulAPI.request;
+app.get("/api/events", function(req, res) {
+
+  // UserEvent.find({}).then(function(events){
+  //   res.json(events)
+  // })
+
   UserEvent.count().exec(function(err, count){
-
       var random = Math.floor(Math.random() * count);
-      UserEvent.findOne().skip(random).exec(
-        function (err, result) {
 
-          res.render("index", {
-            title: result.title,
-            location: result.venue_address
-          })
-      });
+      return UserEvent.findOne().skip(random).exec(
+        function (err, result) {res.json(result)}
+      )
+
     });
-
 });
+
+
 
 app.listen(app.get("port"), function () {
   console.log("THIS WORKS OMG");
