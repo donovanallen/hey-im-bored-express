@@ -10,7 +10,7 @@ var UserEventSchema = new mongoose.Schema(
   }
 )
 
-var UserSelections = []
+
 
 mongoose.model("UserEvent", UserEventSchema);
 mongoose.connect("mongodb://localhost/heyimbored");
