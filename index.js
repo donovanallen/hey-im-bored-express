@@ -7,7 +7,7 @@ var app = express();
 var restfulAPI = require("./eventful.js");
 var UserEvent = mongoose.model("UserEvent");
 
-app.set("port", process.env.PORT || 3001);
+app.set("port", process.env.PORT || 4001);
 app.set("view engine", "hbs")
 
 app.engine(".hbs", hbs({
@@ -17,9 +17,11 @@ app.engine(".hbs", hbs({
   defaultLayout: "layout"
 }));
 
+
 app.use("/assets", express.static("public"));
 app.use(parser.json({extended: true}));
 
+<<<<<<< HEAD
 app.get("/", function(req, res) {
   var options = {
       host : 'api.eventful.com',
@@ -60,8 +62,28 @@ app.get("/", function(req, res) {
     // console.log("dfhi")
 
 });
+=======
+>>>>>>> 7e5648fbf136443ef5f30e7a9ba09fe11bf00480
 
 
+app.get("/", function(req, res) {
+  console.log("hello")
+  restfulAPI.options;
+  restfulAPI.request;
+  UserEvent.count().exec(function(err, count){
+
+      var random = Math.floor(Math.random() * count);
+      UserEvent.findOne().skip(random).exec(
+        function (err, result) {
+
+          res.render("index", {
+            title: result.title,
+            location: result.venue_address
+          })
+      });
+    });
+
+});
 
 app.listen(app.get("port"), function () {
   console.log("THIS WORKS OMG");
