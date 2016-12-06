@@ -6,6 +6,7 @@ var http = require('http')
 var app = express();
 var restfulAPI = require("./eventful.js");
 var UserEvent = mongoose.model("UserEvent");
+var UserInput = mongoose.model("UserInput");
 var cors = require('cors');
 
 app.set("port", process.env.PORT || 4001);
@@ -28,11 +29,31 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/", function(req, res) {
+app.get("/api/events", function(req, res) {
+
+
+  UserEvent.count().exec(function(err, count){
+      var random = Math.floor(Math.random() * count);
+
+      return UserEvent.findOne().skip(random).exec(
+        function (err, result) {res.json(result)}
+      )
+
+    });
+});
+
+app.post("/", function(req, res) {
+  console.log("****************");
+  console.log(req.body)
+  let postal_code = req.body.postal_code;
+
   var options = {
       host : 'api.eventful.com',
-      path : '/json/events/search?q=food&l=20002&app_key=' + restfulAPI.eventful_key
+      path : '/json/events/search?q=sports&l=' + postal_code + '&app_key=' + restfulAPI.eventful_key
     }
+
+    console.log(options.path + "!!!!!!!!!!");
+
 
   var request = http.get(options, function(response){
       var body = ""
@@ -43,14 +64,14 @@ app.get("/", function(req, res) {
       response.on('end', function() {
         // move body data into mongodb
         var result = ((JSON.parse(body)).events.event);
-        console.log("*******************");
-        console.log('this is result from response.on: ', result)
+        // console.log("*******************");
+        // console.log('this is result from response.on: ', result)
         UserEvent.collection.insert(result)
       });
     });
 
   request.on('error', function(e) {
-    console.log('Problem with request: ' + e.message);
+    // console.log('Problem with request: ' + e.message);
   });
 
 
@@ -65,19 +86,7 @@ app.get("/", function(req, res) {
       });
 
     });
-});
 
-app.get("/api/events", function(req, res) {
-
-
-  UserEvent.count().exec(function(err, count){
-      var random = Math.floor(Math.random() * count);
-
-      return UserEvent.findOne().skip(random).exec(
-        function (err, result) {res.json(result)}
-      )
-
-    });
 });
 
 app.delete("/api/events", function(req, res){

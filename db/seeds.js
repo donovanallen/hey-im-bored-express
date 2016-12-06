@@ -1,6 +1,7 @@
 var mongoose = require("./connection");
 
 var UserEvent = mongoose.model("UserEvent")
+var UserInput = mongoose.model("UserInput")
 
 var seedData = [
   {
@@ -26,8 +27,21 @@ var seedData = [
   }
 ]
 
+var seedData2 = [
+  {
+    "postal_code": "22309",
+    "categories": ["Music", "Family"]
+  }
+]
+
 UserEvent.remove({}).then(function(){
   UserEvent.collection.insert(seedData).then(function(){
+    process.exit();
+  })
+})
+
+UserInput.remove({}).then(function(){
+  UserInput.collection.insert(seedData2).then(function(){
     process.exit();
   })
 })

@@ -10,9 +10,16 @@ var UserEventSchema = new mongoose.Schema(
   }
 )
 
+var UserInputSchema = new mongoose.Schema(
+  {
+    postal_code: String,
+    categories: String
+  }
+)
 
 
 mongoose.model("UserEvent", UserEventSchema);
+mongoose.model("UserInput", UserInputSchema);
 mongoose.connect("mongodb://localhost/heyimbored");
 
 module.exports = mongoose;
