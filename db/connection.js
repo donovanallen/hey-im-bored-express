@@ -10,16 +10,15 @@ var UserEventSchema = new mongoose.Schema(
   }
 )
 
-var UserInputSchema = new mongoose.Schema(
+var SnarkyCommentsSchema = new mongoose.Schema(
   {
-    postal_code: String,
-    categories: String
+    comment: String,
   }
 )
 
 
 mongoose.model("UserEvent", UserEventSchema);
-mongoose.model("UserInput", UserInputSchema);
+mongoose.model("SnarkyComments", SnarkyCommentsSchema);
 mongoose.connect("mongodb://localhost/heyimbored");
 
 module.exports = mongoose;
