@@ -33,6 +33,7 @@ app.get("/api/events", function(req, res) {
 
 
   UserEvent.count().exec(function(err, count){
+
       var random = Math.floor(Math.random() * count);
       var randomComment = Math.floor(Math.random() * 5);
 
@@ -50,18 +51,14 @@ app.get("/api/events", function(req, res) {
     });
 });
 
-app.post("/", function(req, res) {
-  console.log("****************");
-  console.log(req.body)
+app.post("/api/events", function(req, res) {
+
   let postal_code = req.body.postal_code;
 
   var options = {
       host : 'api.eventful.com',
       path : '/json/events/search?q=food&l=' + postal_code + '&app_key=' + restfulAPI.eventful_key
     }
-
-    console.log(options.path + "!!!!!!!!!!");
-
 
   var request = http.get(options, function(response){
       var body = ""
@@ -72,25 +69,15 @@ app.post("/", function(req, res) {
       response.on('end', function() {
         // move body data into mongodb
         var result = ((JSON.parse(body)).events.event);
-        // console.log("*******************");
-        // console.log('this is result from response.on: ', result)
+
         UserEvent.collection.insert(result)
+        res.json("bob")
       });
     });
 
   request.on('error', function(e) {
-    // console.log('Problem with request: ' + e.message);
+    console.log('Problem with request: ' + e.message);
   });
-
-
-  UserEvent.count().exec(function(err, count){
-      var random = Math.floor(Math.random() * count);
-      UserEvent.findOne().skip(random).exec(
-        function (err, result) {
-          res.render("index", {})
-      });
-
-    });
 
 });
 
