@@ -6,7 +6,7 @@ var http = require('http')
 var app = express();
 var restfulAPI = require("./eventful.js");
 var UserEvent = mongoose.model("UserEvent");
-var UserInput = mongoose.model("UserInput");
+var SnarkyComments = mongoose.model("SnarkyComments");
 var cors = require('cors');
 
 app.set("port", process.env.PORT || 4001);
@@ -34,10 +34,18 @@ app.get("/api/events", function(req, res) {
 
   UserEvent.count().exec(function(err, count){
       var random = Math.floor(Math.random() * count);
+      var randomComment = Math.floor(Math.random() * 5);
 
-      return UserEvent.findOne().skip(random).exec(
-        function (err, result) {res.json(result)}
-      )
+      if(count === 0){
+        SnarkyComments.findOne().skip(randomComment).exec(
+         function (err, result) {res.json(result)}
+       )
+      }
+      else {
+        return UserEvent.findOne().skip(random).exec(
+          function (err, result) {res.json(result)}
+        )
+      }
 
     });
 });
@@ -49,7 +57,7 @@ app.post("/", function(req, res) {
 
   var options = {
       host : 'api.eventful.com',
-      path : '/json/events/search?q=sports&l=' + postal_code + '&app_key=' + restfulAPI.eventful_key
+      path : '/json/events/search?q=food&l=' + postal_code + '&app_key=' + restfulAPI.eventful_key
     }
 
     console.log(options.path + "!!!!!!!!!!");
@@ -79,10 +87,7 @@ app.post("/", function(req, res) {
       var random = Math.floor(Math.random() * count);
       UserEvent.findOne().skip(random).exec(
         function (err, result) {
-          res.render("index", {
-            title: result.title,
-            location: result.venue_address
-          })
+          res.render("index", {})
       });
 
     });

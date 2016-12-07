@@ -1,7 +1,7 @@
 var mongoose = require("./connection");
 
 var UserEvent = mongoose.model("UserEvent")
-var UserInput = mongoose.model("UserInput")
+var SnarkyComments = mongoose.model("SnarkyComments")
 
 var seedData = [
   {
@@ -27,11 +27,12 @@ var seedData = [
   }
 ]
 
-var seedData2 = [
-  {
-    "postal_code": "22309",
-    "categories": ["Music", "Family"]
-  }
+var SnarkyCommentsSeeds = [
+  {comment: "Test1"},
+  {comment: "Test2"},
+  {comment: "Test3"},
+  {comment: "Test4"},
+  {comment: "Test5"}
 ]
 
 UserEvent.remove({}).then(function(){
@@ -40,8 +41,8 @@ UserEvent.remove({}).then(function(){
   })
 })
 
-UserInput.remove({}).then(function(){
-  UserInput.collection.insert(seedData2).then(function(){
+SnarkyComments.remove({}).then(function(){
+  SnarkyComments.collection.insert(SnarkyCommentsSeeds).then(function(){
     process.exit();
   })
 })
