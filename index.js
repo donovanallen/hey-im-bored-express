@@ -38,6 +38,7 @@ app.get("/api/events", function(req, res) {
       return UserEvent.findOne().skip(random).exec(
         function (err, result) {res.json(result)}
       )
+      console.log("****" + result);
 
     });
 });
@@ -46,10 +47,14 @@ app.post("/", function(req, res) {
   console.log("****************");
   console.log(req.body)
   let postal_code = req.body.postal_code;
+  let catString = req.body.categories
+
+
+  console.log("categories: " + catString);
 
   var options = {
       host : 'api.eventful.com',
-      path : '/json/events/search?q=sports&l=' + postal_code + '&app_key=' + restfulAPI.eventful_key
+      path : '/json/events/search?q=' + catString + '&l=' + postal_code + '&within=10&units=miles&t=Next+24+hours&page_size=20&app_key=' + restfulAPI.eventful_key
     }
 
     console.log(options.path + "!!!!!!!!!!");
@@ -62,10 +67,7 @@ app.post("/", function(req, res) {
       });
 
       response.on('end', function() {
-        // move body data into mongodb
         var result = ((JSON.parse(body)).events.event);
-        // console.log("*******************");
-        // console.log('this is result from response.on: ', result)
         UserEvent.collection.insert(result)
       });
     });
@@ -74,17 +76,13 @@ app.post("/", function(req, res) {
     // console.log('Problem with request: ' + e.message);
   });
 
-
   UserEvent.count().exec(function(err, count){
       var random = Math.floor(Math.random() * count);
       UserEvent.findOne().skip(random).exec(
         function (err, result) {
-          res.render("index", {
-            title: result.title,
-            location: result.venue_address
-          })
+          console.log(result);
+          res.render("index", {})
       });
-
     });
 
 });
