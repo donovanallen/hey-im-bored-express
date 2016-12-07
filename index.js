@@ -6,7 +6,7 @@ var http = require('http')
 var app = express();
 var restfulAPI = require("./eventful.js");
 var UserEvent = mongoose.model("UserEvent");
-var UserInput = mongoose.model("UserInput");
+var SnarkyComments = mongoose.model("SnarkyComments");
 var cors = require('cors');
 
 app.set("port", process.env.PORT || 4001);
@@ -33,19 +33,26 @@ app.get("/api/events", function(req, res) {
 
 
   UserEvent.count().exec(function(err, count){
-      var random = Math.floor(Math.random() * count);
 
-      return UserEvent.findOne().skip(random).exec(
-        function (err, result) {res.json(result)}
-      )
-      console.log("****" + result);
+      var random = Math.floor(Math.random() * count);
+      var randomComment = Math.floor(Math.random() * 5);
+
+      if(count === 0){
+        SnarkyComments.findOne().skip(randomComment).exec(
+         function (err, result) {res.json(result)}
+       )
+      }
+      else {
+        return UserEvent.findOne().skip(random).exec(
+          function (err, result) {res.json(result)}
+        )
+      }
 
     });
 });
 
-app.post("/", function(req, res) {
-  console.log("****************");
-  console.log(req.body)
+app.post("/api/events", function(req, res) {
+
   let postal_code = req.body.postal_code;
   let catString = req.body.categories
 
@@ -57,9 +64,6 @@ app.post("/", function(req, res) {
       path : '/json/events/search?q=' + catString + '&l=' + postal_code + '&within=10&units=miles&t=Next+24+hours&page_size=20&app_key=' + restfulAPI.eventful_key
     }
 
-    console.log(options.path + "!!!!!!!!!!");
-
-
   var request = http.get(options, function(response){
       var body = ""
       response.on('data', function(data) {
@@ -69,21 +73,13 @@ app.post("/", function(req, res) {
       response.on('end', function() {
         var result = ((JSON.parse(body)).events.event);
         UserEvent.collection.insert(result)
+        res.json("bob")
       });
     });
 
   request.on('error', function(e) {
-    // console.log('Problem with request: ' + e.message);
+    console.log('Problem with request: ' + e.message);
   });
-
-  UserEvent.count().exec(function(err, count){
-      var random = Math.floor(Math.random() * count);
-      UserEvent.findOne().skip(random).exec(
-        function (err, result) {
-          console.log(result);
-          res.render("index", {})
-      });
-    });
 
 });
 
