@@ -56,14 +56,14 @@ app.post("/api/events", function(req, res) {
   let postal_code = req.body.postal_code;
   let catString = req.body.categories
 
-
-  console.log("categories: " + catString);
+  let location = postal_code.split(" ").join("+")
 
   var options = {
       host : 'api.eventful.com',
-      path : '/json/events/search?q=' + catString + '&l=' + postal_code + '&within=10&units=miles&t=Next+24+hours&page_size=20&app_key=' + restfulAPI.eventful_key
+      path : '/json/events/search?q=' + catString + '&l=' + location + '&within=10&units=miles&t=Today&page_size=20&app_key=' + restfulAPI.eventful_key
     }
 
+console.log(options.path + "******************")
   var request = http.get(options, function(response){
       var body = ""
       response.on('data', function(data) {
