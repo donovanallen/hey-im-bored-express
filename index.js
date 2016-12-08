@@ -4,7 +4,7 @@ var hbs = require('express-handlebars')
 var mongoose = require('./db/connection')
 var http = require('http')
 var app = express();
-var restfulAPI = require("./eventful.js");
+var restfulAPI = process.env.eventful_key;
 var UserEvent = mongoose.model("UserEvent");
 var SnarkyComments = mongoose.model("SnarkyComments");
 var cors = require('cors');
@@ -60,7 +60,7 @@ app.post("/api/events", function(req, res) {
 
   var options = {
       host : 'api.eventful.com',
-      path : '/json/events/search?c=' + catString + '&l=' + location + '&within=10&units=miles&t=Today&page_size=20&app_key=' + restfulAPI.eventful_key
+      path : '/json/events/search?c=' + catString + '&l=' + location + '&within=10&units=miles&t=Today&page_size=20&app_key=' + restfulAPI
     }
 
     console.log(eventful_key);
