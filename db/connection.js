@@ -19,6 +19,10 @@ var SnarkyCommentsSchema = new mongoose.Schema(
 
 mongoose.model("UserEvent", UserEventSchema);
 mongoose.model("SnarkyComments", SnarkyCommentsSchema);
-mongoose.connect("mongodb://localhost/heyimbored");
+if(process.env.NODE_ENV == "production"){
+  mongoose.connect(process.env.MONGOLAB_URI);
+}else{
+  mongoose.connect("mongodb://localhost/heyimbored");
+}
 
 module.exports = mongoose;
