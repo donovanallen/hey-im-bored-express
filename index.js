@@ -63,6 +63,8 @@ app.post("/api/events", function(req, res) {
       path : '/json/events/search?c=' + catString + '&l=' + location + '&within=10&units=miles&t=Today&page_size=20&app_key=' + restfulAPI.eventful_key
     }
 
+    console.log(eventful_key);
+
 console.log(options.path + "******************")
   var request = http.get(options, function(response){
       var body = ""
