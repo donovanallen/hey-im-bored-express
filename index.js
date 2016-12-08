@@ -60,7 +60,7 @@ app.post("/api/events", function(req, res) {
 
   var options = {
       host : 'api.eventful.com',
-      path : '/json/events/search?q=' + catString + '&l=' + location + '&within=10&units=miles&t=Today&page_size=20&app_key=' + restfulAPI.eventful_key
+      path : '/json/events/search?c=' + catString + '&l=' + location + '&within=10&units=miles&t=Today&page_size=20&app_key=' + restfulAPI.eventful_key
     }
 
 console.log(options.path + "******************")

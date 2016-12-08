@@ -28,11 +28,11 @@ var seedData = [
 ]
 
 var SnarkyCommentsSeeds = [
-  {comment: "Test1"},
-  {comment: "Test2"},
-  {comment: "Test3"},
-  {comment: "Test4"},
-  {comment: "Test5"}
+  {comment: "Enjoy staring at our cool background"},
+  {comment: "Hope your couch is comfy"},
+  {comment: "Looks like it's Netflix again"},
+  {comment: "Guess it's time to adopt a cat"},
+  {comment: "Time to take up knitting"}
 ]
 
 UserEvent.remove({}).then(function(){
