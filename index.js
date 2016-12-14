@@ -52,6 +52,7 @@ app.get("/api/events", function(req, res) {
 });
 
 app.post("/api/events", function(req, res) {
+  UserEvent.collection.remove({})
 
   let postal_code = req.body.postal_code;
   let catString = req.body.categories
