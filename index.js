@@ -5,7 +5,7 @@ var mongoose = require('./db/connection')
 var http = require('http')
 var app = express();
 var dotenv = require('dotenv').config()
-var restfulAPI = process.env.eventful_key;
+var restfulAPI = process.env.EVENTFUL_KEY;
 var UserEvent = mongoose.model("UserEvent");
 var SnarkyComments = mongoose.model("SnarkyComments");
 var cors = require('cors');
@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
 });
 
 app.get("/api/events", function(req, res) {
-  console.log("************************** " + process.env);
+  console.log("************************** " + process.env.EVENTFUL_KEY);
 
   UserEvent.count().exec(function(err, count){
 
