@@ -4,6 +4,7 @@ var hbs = require('express-handlebars')
 var mongoose = require('./db/connection')
 var http = require('http')
 var app = express();
+var dotenv = require('dotenv').config()
 var restfulAPI = process.env.eventful_key;
 var UserEvent = mongoose.model("UserEvent");
 var SnarkyComments = mongoose.model("SnarkyComments");
@@ -30,7 +31,7 @@ app.use(function(req, res, next) {
 });
 
 app.get("/api/events", function(req, res) {
-  console.log(process.env);
+  console.log(process.env.eventful_key);
 
   UserEvent.count().exec(function(err, count){
 
