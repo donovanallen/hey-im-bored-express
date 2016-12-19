@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
 });
 
 app.get("/api/events", function(req, res) {
-  console.log(process.env.eventful_key);
+  console.log(process.env);
 
   UserEvent.count().exec(function(err, count){
 
