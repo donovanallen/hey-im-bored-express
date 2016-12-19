@@ -21,7 +21,8 @@ mongoose.model("UserEvent", UserEventSchema);
 mongoose.model("SnarkyComments", SnarkyCommentsSchema);
 if(process.env.NODE_ENV == "production"){
   mongoose.connect(process.env.MONGODB_URI);
-  console.log(process.env.MONGODB_URI + "mlab connected");
+  var restfulAPI = process.env.EVENTFUL_KEY
+  console.log("!!!!!!!!" + process.env.EVENTFUL_KEY + ' ' process.env.MONGODB_URI + "mlab connected");
 }else{
   mongoose.connect("mongodb://localhost/heyimbored");
   console.log("not connected");
