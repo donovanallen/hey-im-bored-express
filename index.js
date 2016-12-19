@@ -65,8 +65,6 @@ app.post("/api/events", function(req, res) {
     }
 
     
-
-console.log(options.path + "******************")
   var request = http.get(options, function(response){
       var body = ""
       response.on('data', function(data) {
