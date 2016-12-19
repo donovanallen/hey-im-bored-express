@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
 });
 
 app.get("/api/events", function(req, res) {
-  console.log(process.env);
+  console.log("************************** " + process.env);
 
   UserEvent.count().exec(function(err, count){
 
@@ -65,7 +65,7 @@ app.post("/api/events", function(req, res) {
       path : '/json/events/search?c=' + catString + '&l=' + location + '&within=10&units=miles&t=Today&page_size=20&app_key=' + restfulAPI
     }
 
-    console.log(eventful_key);
+    console.log("&&&&&&&&&&&&&&&& " + eventful_key);
 
 console.log(options.path + "******************")
   var request = http.get(options, function(response){
